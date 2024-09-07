@@ -1,78 +1,41 @@
 import { serve } from "bun";
-import { ApiClient } from "./src/apiClient";
-import dotenv from "dotenv";
+import { ApiController } from "./src/controllers/ApiController";
+import chalk from "chalk";
 
-// Load environment variables from .env file
-dotenv.config();
+const port = process.env.PORT || 3000;
+const baseUrl = process.env.BASE_URL || "https://jsonplaceholder.typicode.com";
+const apiController = new ApiController(baseUrl);
 
-// Get port and API base URL from environment variables
-const PORT = process.env.PORT || 3000;
-const API_URL = process.env.API_URL || "https://jsonplaceholder.typicode.com";
-
-// Create an instance of ApiClient
-const apiClient = new ApiClient(API_URL);
-
-serve({
-  port: Number(PORT),
-  fetch(req) {
+const server = serve({
+  fetch: async (req) => {
     const url = new URL(req.url);
 
-    // Routing
-    if (url.pathname === "/") {
-      return new Response("Hello via Bun Server!", { status: 200 });
-    }
+    console.log(chalk.blue(`Accessing Endpoint: ${url.pathname}`));
 
-    // Handle API route - /users
+    let responseData;
+    let statusCode = 200;
+
     if (url.pathname === "/users") {
-      return apiClient
-        .get("/users")
-        .then((data) => {
-          return new Response(JSON.stringify(data), {
-            headers: { "Content-Type": "application/json" },
-            status: 200,
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching users:", error);
-          return new Response("Internal Server Error", { status: 500 });
-        });
+      responseData = await apiController.getUsers(req);
+    } else if (url.pathname === "/posts") {
+      responseData = await apiController.getPosts(req);
+    } else if (url.pathname === "/comments") {
+      responseData = await apiController.getComments(req);
+    } else {
+      responseData = { message: "Not found" };
+      statusCode = 404;
     }
 
-    // Handle API route - /posts
-    if (url.pathname === "/posts") {
-      return apiClient
-        .get("/posts")
-        .then((data) => {
-          return new Response(JSON.stringify(data), {
-            headers: { "Content-Type": "application/json" },
-            status: 200,
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching posts:", error);
-          return new Response("Internal Server Error", { status: 500 });
-        });
-    }
+    const prettyJson = JSON.stringify(responseData, null, 2);
+    console.log(chalk.green("Response:"));
+    console.log(chalk.yellow(prettyJson));
 
-    // Handle API route - /comments
-    if (url.pathname === "/comments") {
-      return apiClient
-        .get("/comments")
-        .then((data) => {
-          return new Response(JSON.stringify(data), {
-            headers: { "Content-Type": "application/json" },
-            status: 200,
-          });
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-          return new Response("Internal Server Error", { status: 500 });
-        });
-    }
-
-    // Default 404 Not Found
-    return new Response("Not Found", { status: 404 });
+    return new Response(prettyJson, {
+      headers: { "Content-Type": "application/json" },
+      status: statusCode,
+    });
   },
+  port: +port,
 });
 
-console.log(`Server is running on http://localhost:${PORT}`);
+console.log(chalk.cyan(`Server running on port ${port}`));
