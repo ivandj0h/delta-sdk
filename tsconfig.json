@@ -12,7 +12,11 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+
+    // Emit options
+    "noEmit": true, // noEmit diaktifkan untuk pengembangan, tetapi di build akan ditimpa
+    "emitDeclarationOnly": true, // Hanya keluarkan file deklarasi
+    "declaration": true, // Diperlukan untuk emitDeclarationOnly
 
     // Best practices
     "strict": true,
@@ -20,7 +24,7 @@
     "noFallthroughCasesInSwitch": true,
 
     // Support for ESM
-    "esModuleInterop": true, // Untuk kompatibilitas dengan impor ESM seperti axios dan lainnya
+    "esModuleInterop": true,
 
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
@@ -34,6 +38,6 @@
       "module": "ESNext"
     }
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"], // Tentukan folder yang ingin di-compile oleh TypeScript
-  "exclude": ["node_modules"] // Exclude folder yang tidak perlu di-compile
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"]
 }
