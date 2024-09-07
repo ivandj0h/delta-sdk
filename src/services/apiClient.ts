@@ -13,7 +13,7 @@ export class ApiClient {
     });
   }
 
-  public async get<T>(url: string): Promise<T> {
+  public async get<T>(url: string): Promise<T | null> {
     try {
       const response = await this.client.get<T>(url);
       return response.data;
@@ -21,11 +21,11 @@ export class ApiClient {
       if (this.isAxiosError(error)) {
         this.handleError(error);
       }
-      throw error;
+      return null;
     }
   }
 
-  public async post<T>(url: string, data: any): Promise<T> {
+  public async post<T>(url: string, data: any): Promise<T | null> {
     try {
       const response = await this.client.post<T>(url, data);
       return response.data;
@@ -33,7 +33,7 @@ export class ApiClient {
       if (this.isAxiosError(error)) {
         this.handleError(error);
       }
-      throw error;
+      return null;
     }
   }
 
@@ -44,7 +44,7 @@ export class ApiClient {
   private handleError(error: AxiosError) {
     if (error.response) {
       console.error(
-        `Error: ${error.response.status} - ${error.response.statusText}`,
+          `Error: ${error.response.status} - ${error.response.statusText}`
       );
     } else if (error.request) {
       console.error("No response received from server.");

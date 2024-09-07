@@ -1,4 +1,4 @@
-import { ApiClient } from "../src/apiClient";
+import { ApiClient } from "../src/services/apiClient.ts";
 import axios from "axios";
 
 // Mock axios
