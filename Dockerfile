@@ -13,8 +13,8 @@ RUN bun install
 COPY ./src ./src
 COPY tsconfig.json .
 
-# Hapus noEmit dari tsconfig.json selama proses build
-RUN sed -i '/"noEmit": true,/d' tsconfig.json && bun run tsc
+# Hapus noEmit dan allowImportingTsExtensions dari tsconfig.json selama proses build
+RUN sed -i '/"noEmit": true,/d' tsconfig.json && sed -i '/"allowImportingTsExtensions": true,/d' tsconfig.json && bun run tsc
 
 # Stage 2: Final image
 FROM oven/bun:latest
