@@ -10,13 +10,11 @@
 
     // Bundler mode
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": true, // Tetap gunakan
     "verbatimModuleSyntax": true,
 
     // Emit options
-    "emitDeclarationOnly": true, // Hanya mengeluarkan file deklarasi
-    "declaration": true, // Mengaktifkan deklarasi
-    // "noEmit": true, --> Hapus ini untuk build Docker
+    "noEmit": true, // Aktifkan untuk mendukung allowImportingTsExtensions
 
     // Best practices
     "strict": true,
