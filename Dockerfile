@@ -13,15 +13,15 @@ RUN bun install
 COPY ./src ./src
 COPY tsconfig.json .
 
-# Build TypeScript code, override noEmit to force emitting JS files
-RUN bun run tsc --noEmit false
+# Hapus noEmit dari tsconfig.json selama proses build
+RUN sed -i '/"noEmit": true,/d' tsconfig.json && bun run tsc
 
 # Stage 2: Final image
 FROM oven/bun:latest
 
 WORKDIR /app
 
-# Copy hanya file yang sudah dibuild dari tahap build
+# Copy only the built files from the builder
 COPY --from=builder /app/dist ./dist
 
 # Set the command to run the SDK

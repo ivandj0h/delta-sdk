@@ -14,9 +14,9 @@
     "verbatimModuleSyntax": true,
 
     // Emit options
-    "noEmit": true, // noEmit diaktifkan untuk pengembangan, tetapi di build akan ditimpa
-    "emitDeclarationOnly": true, // Hanya keluarkan file deklarasi
-    "declaration": true, // Diperlukan untuk emitDeclarationOnly
+    "emitDeclarationOnly": true, // Hanya mengeluarkan file deklarasi
+    "declaration": true, // Mengaktifkan deklarasi
+    // "noEmit": true, --> Hapus ini untuk build Docker
 
     // Best practices
     "strict": true,
