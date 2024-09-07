@@ -3,7 +3,7 @@
 # Variables
 DOCKER_IMAGE_NAME = delta-sdk
 TSC = bun run tsc
-TEST = bun run jest
+TEST = bun run jest --config jest.config.json
 DOCKERFILE = Dockerfile
 
 # Commands

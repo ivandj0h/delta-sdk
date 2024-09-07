@@ -19,6 +19,9 @@
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
 
+    // Support for ESM
+    "esModuleInterop": true, // Untuk kompatibilitas dengan impor ESM seperti axios dan lainnya
+
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
