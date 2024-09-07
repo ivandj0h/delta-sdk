@@ -3,9 +3,8 @@ FROM oven/bun:latest AS builder
 
 WORKDIR /app
 
-# Copy the package.json and bunfig.toml
+# Copy the package.json
 COPY package*.json ./
-COPY bunfig.toml ./
 
 # Install dependencies
 RUN bun install
