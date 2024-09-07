@@ -15,16 +15,22 @@ jobs:
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
-          echo "export BUN_INSTALL=\"$HOME/.bun\"" >> $GITHUB_ENV
-          echo "export PATH=\"$BUN_INSTALL/bin:\$PATH\"" >> $GITHUB_ENV
-          source $GITHUB_ENV
+          echo "Bun installed!"
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
           bun --version
 
       - name: Install dependencies
-        run: bun install
+        run: |
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+          bun install
 
       - name: Run unit tests
-        run: bun run jest
+        run: |
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+          bun run jest
 
   build:
     needs: test
@@ -36,16 +42,22 @@ jobs:
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
-          echo "export BUN_INSTALL=\"$HOME/.bun\"" >> $GITHUB_ENV
-          echo "export PATH=\"$BUN_INSTALL/bin:\$PATH\"" >> $GITHUB_ENV
-          source $GITHUB_ENV
+          echo "Bun installed!"
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
           bun --version
 
       - name: Install dependencies
-        run: bun install
+        run: |
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+          bun install
 
       - name: Build the project
-        run: bun run tsc
+        run: |
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+          bun run tsc
 
       - name: Build Docker image
         run: docker build -t delta-sdk .
