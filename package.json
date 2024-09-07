@@ -2,10 +2,22 @@
   "name": "delta-sdk",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "build": "bun run tsc",
+    "test": "bun run jest --config jest.config.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.5.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "axios": "^1.7.7"
   }
 }

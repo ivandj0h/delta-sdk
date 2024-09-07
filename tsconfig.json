@@ -23,5 +23,14 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-  }
+  },
+  "ts-node": {
+    // Mengatur agar TypeScript dapat berjalan dalam mode ESM dengan ts-node
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "ESNext"
+    }
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"], // Tentukan folder yang ingin di-compile oleh TypeScript
+  "exclude": ["node_modules"] // Exclude folder yang tidak perlu di-compile
 }
