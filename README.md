@@ -20,7 +20,7 @@ bun install
 To run the project :
 
 ```bash
-bun run index.ts
+bun run --watch dev
 ```
 
 ## Screenshots

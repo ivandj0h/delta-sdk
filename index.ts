@@ -38,6 +38,39 @@ serve({
         });
     }
 
+    // Handle API route - /posts
+    if (url.pathname === "/posts") {
+      return apiClient
+        .get("/posts")
+        .then((data) => {
+          return new Response(JSON.stringify(data), {
+            headers: { "Content-Type": "application/json" },
+            status: 200,
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+          return new Response("Internal Server Error", { status: 500 });
+        });
+    }
+
+    // Handle API route - /comments
+    if (url.pathname === "/comments") {
+      return apiClient
+        .get("/comments")
+        .then((data) => {
+          return new Response(JSON.stringify(data), {
+            headers: { "Content-Type": "application/json" },
+            status: 200,
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+          return new Response("Internal Server Error", { status: 500 });
+        });
+    }
+
+    // Default 404 Not Found
     return new Response("Not Found", { status: 404 });
   },
 });

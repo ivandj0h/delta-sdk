@@ -5,7 +5,7 @@
   "scripts": {
     "build": "bun run tsc",
     "test": "bun run jest --config jest.config.ts",
-    "dev": "bun run index.ts"
+    "dev": "bun run --watch index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
